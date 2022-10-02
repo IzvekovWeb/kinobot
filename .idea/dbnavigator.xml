@@ -29,9 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="982faf76-d48f-4e88-a821-4450a2ff065b">
-      <console name="Kinobot_db" type="STANDARD" schema="public" session="Main"><![CDATA[--DROP TABLE IF EXISTS kb_users CASCADE;
-
-CREATE TABLE IF NOT EXISTS kb_users (
+      <console name="Kinobot_db" type="STANDARD" schema="public" session="Main"><![CDATA[CREATE TABLE IF NOT EXISTS kb_users (
         id          SERIAL,
         user_id     int PRIMARY KEY NOT NULL UNIQUE,
         chat_id     int,
