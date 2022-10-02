@@ -3,7 +3,7 @@ import psycopg2
 from psycopg2 import Error
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-from queries.create_tables import create_users, create_films, create_user_films
+from queries.create_tables import create_users, create_films, create_films_collection
 from bot.config import db_creds
 
 
@@ -32,9 +32,9 @@ class DataBase:
 
     def create_tables(self):
         try:
-            self.cursor.execute(create_users)
-            self.cursor.execute(create_films)
-            self.cursor.execute(create_user_films)
+            # self.cursor.execute(create_users)
+            # self.cursor.execute(create_films)
+            self.cursor.execute(create_films_collection)
         except (Exception, Error) as e:
             print("Ошибка при создании таблицы в БД", e)
 
@@ -47,3 +47,4 @@ class DataBase:
 
 if __name__ == '__main__':
     db = DataBase()
+    db.create_tables()

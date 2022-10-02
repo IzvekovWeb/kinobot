@@ -13,10 +13,11 @@ create_films = """DROP TABLE IF EXISTS kb_films CASCADE;
                     film_name   varchar(255),
                     rating      REAL
                 );"""
-create_user_films = """DROP TABLE IF EXISTS kb_user_films CASCADE;
-                CREATE TABLE IF NOT EXISTS kb_user_films (
+create_films_collection = """DROP TABLE IF EXISTS kb_films_collection CASCADE;
+                CREATE TABLE IF NOT EXISTS kb_films_collection (
                     id          SERIAL,
                     film_id     int NOT NULL REFERENCES kb_films (film_id) ON DELETE CASCADE,
                     user_id     int REFERENCES kb_users (user_id) ON DELETE CASCADE,
-                    is_favorite boolean DEFAULT false NOT NULL
+                    is_favorite boolean DEFAULT false NOT NULL,
+                    CONSTRAINT unique_pair UNIQUE (film_id, user_id)
                 );"""

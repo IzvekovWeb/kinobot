@@ -1,4 +1,5 @@
 from psycopg2 import Error
+from psycopg2.errors import ForeignKeyViolation, UniqueViolation
 
 from DataBase import DataBase
 
@@ -78,9 +79,43 @@ class Film:
         except (Exception, Error) as e:
             print(f"Ошибка в ходе удаления пользователя: {e}")
 
+    def add_to_collection(self, user_id: int, is_favorite=False):
+        db = DataBase()
 
-if __name__ == '__main__':
-    film = Film(1)
-    # film.add()
-    # film.update('Санктум', new_rating=7.7)
-    # film.delete()
+        try:
+            with db.conn:
+                db.cursor.execute("INSERT INTO kb_films_collection "
+                                  "(user_id, film_id, is_favorite) "
+                                  "VALUES (%s, %s, %s)",
+                                  (user_id, self.id, is_favorite))
+        except (ForeignKeyViolation, UniqueViolation) as e:
+            print(e)
+        except (Exception, Error) as e:
+            print(f"Ошибка в ходе добавления данных: {e}")
+
+    @classmethod
+    def add_to_collection_by_id(cls, film_id: int, user_id: int, is_favorite=False):
+        db = DataBase()
+
+        try:
+            with db.conn:
+                db.cursor.execute("INSERT INTO kb_films_collection "
+                                  "(user_id, film_id, is_favorite) "
+                                  "VALUES (%s, %s, %s)",
+                                  (user_id, film_id, is_favorite))
+        except (ForeignKeyViolation, UniqueViolation) as e:
+            print(e)
+        except (Exception, Error) as e:
+            print(f"Ошибка в ходе добавления данных: {e}")
+
+    @classmethod
+    def set_favorite(cls, film_id, user_id, is_favorite=True):
+        db = DataBase()
+
+        try:
+            db.cursor.execute("UPDATE kb_films_collection "
+                              "SET is_favorite=%s "
+                              "WHERE user_id=%s AND film_id=%s",
+                              (is_favorite, user_id, film_id))
+        except (Exception, Error) as e:
+            print(f"Ошибка в ходе обновления данных: {e}")

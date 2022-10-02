@@ -78,10 +78,3 @@ class User:
             db.cursor.execute("DELETE FROM kb_users WHERE user_id = %s", (self.id, ))
         except (Exception, Error) as e:
             print(f"Ошибка в ходе удаления пользователя: {e}")
-
-
-if __name__ == '__main__':
-    user = User(1, 'Peter')
-    # user.add()
-    # user.update('Peter', 22)
-    # user.delete()

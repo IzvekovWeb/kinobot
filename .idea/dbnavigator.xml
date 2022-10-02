@@ -58,7 +58,9 @@ CREATE TABLE IF NOT EXISTS kb_user_films (
 
 SELECT * FROM kb_users;
 
+SELECT * FROM kb_films;
 
+SELECT * FROM kb_films_collection;
 -- Наполнение данными
 
 
@@ -76,6 +78,9 @@ SELECT * FROM kb_users;
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="982faf76-d48f-4e88-a821-4450a2ff065b" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="982faf76-d48f-4e88-a821-4450a2ff065b" dataset="public.kb_user_films" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
