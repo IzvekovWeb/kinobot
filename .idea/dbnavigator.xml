@@ -29,13 +29,15 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="982faf76-d48f-4e88-a821-4450a2ff065b">
-      <console name="Kinobot_db" type="STANDARD" schema="public" session="Main"><![CDATA[CREATE TABLE IF NOT EXISTS kb_users (
+      <console name="Kinobot_db" type="STANDARD" schema="public" session="Main"><![CDATA[-- Создание таблиц
+
+CREATE TABLE IF NOT EXISTS kb_users (
         id          SERIAL,
         user_id     int PRIMARY KEY NOT NULL UNIQUE,
         chat_id     int,
-        user_name   varchar(100)
+        user_name   varchar(100),
+        created_at  timestamp DEFAULT current_timestamp
     );
-
 
 CREATE TABLE IF NOT EXISTS kb_films (
         id          SERIAL,
@@ -52,7 +54,21 @@ CREATE TABLE IF NOT EXISTS kb_user_films (
         is_favorite boolean DEFAULT false NOT NULL
     );
 
--- Заполнение таблиц --]]></console>
+-- Просмотр данных --
+
+SELECT * FROM kb_users;
+
+
+-- Наполнение данными
+
+
+
+
+
+-- Сбросить serial
+
+--ALTER SEQUENCE `kb_users_id_seq` RESTART WITH 1; 
+--UPDATE kb_users SET id=nextval('kb_users_id_seq');]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

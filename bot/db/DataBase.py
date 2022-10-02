@@ -10,7 +10,7 @@ from bot.config import db_creds
 class DataBase:
 
     def __init__(self):
-        self.__cursor = self.connect()
+        self.conn, self.cursor = self.connect()
 
     @classmethod
     def connect(cls):
@@ -26,24 +26,24 @@ class DataBase:
             # Курсор для выполнения операций с базой данных
             cursor = connection.cursor()
             print("Соединение с PostgreSQL открыто")
-            return cursor
+            return connection, cursor
         except (Exception, Error) as e:
             print("Ошибка при работе с PostgreSQL", e)
 
     def create_tables(self):
         try:
-            self.__cursor.execute(create_users)
-            self.__cursor.execute(create_films)
-            self.__cursor.execute(create_user_films)
+            self.cursor.execute(create_users)
+            self.cursor.execute(create_films)
+            self.cursor.execute(create_user_films)
         except (Exception, Error) as e:
             print("Ошибка при создании таблицы в БД", e)
 
     def __del__(self):
-        if self.__cursor:
-            self.__cursor.close()
+        if self.cursor:
+            self.cursor.close()
+            self.conn.close()
             print("Соединение с PostgreSQL закрыто")
 
 
 if __name__ == '__main__':
     db = DataBase()
-    db.create_tables()
