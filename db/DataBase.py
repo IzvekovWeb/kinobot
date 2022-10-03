@@ -3,7 +3,7 @@ import psycopg2
 from psycopg2 import Error
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-from queries.create_tables import create_users, create_films, create_films_collection
+from db.queries.create_tables import create_users, create_films, create_films_collection
 from bot.config import db_creds
 
 

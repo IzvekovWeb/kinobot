@@ -61,6 +61,8 @@ SELECT * FROM kb_users;
 SELECT * FROM kb_films;
 
 SELECT * FROM kb_films_collection;
+
+
 -- Наполнение данными
 
 

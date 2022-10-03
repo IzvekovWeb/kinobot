@@ -1,14 +1,8 @@
-import telebot
-from bot.config import TELEGRAM_TOKEN
-
-
-bot = telebot.TeleBot(TELEGRAM_TOKEN)
-
-
-@bot.message_handler(content_types=["text"])
-def repeat_all_messages(message):  # Название функции не играет никакой роли
-    bot.send_message(message.chat.id, message.text)
-
+from bot.kinobot import start_bot
 
 if __name__ == '__main__':
-    bot.infinity_polling()
+    try:
+        start_bot()
+    except KeyboardInterrupt:
+        print('Stop')
+        exit(0)

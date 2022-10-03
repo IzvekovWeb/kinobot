@@ -1,6 +1,6 @@
 from psycopg2 import Error
 
-from DataBase import DataBase
+from db.DataBase import DataBase
 
 
 class User:
@@ -9,8 +9,26 @@ class User:
         self.name = user_name
         self.chat_id = chat_id
 
+    def is_exist(self):
+        db = DataBase()
+        try:
+            db.cursor.execute("SELECT COUNT(*) as c FROM kb_users WHERE user_id=%s", (self.id, ))
+            result = db.cursor.fetchone()[0]
+
+            if result > 0:
+                return True
+
+        except (Exception, Error) as e:
+            print(f"Ошибка в ходе поиска пользователя: {e}")
+        return False
+
     def add(self):
         db = DataBase()
+
+        # if self.is_exist():
+        #     print('Пользователь уже есть в базе')
+        #     return
+
         try:
             db.cursor.execute("INSERT INTO kb_users "
                               "(user_id, chat_id, user_name) "
@@ -78,3 +96,8 @@ class User:
             db.cursor.execute("DELETE FROM kb_users WHERE user_id = %s", (self.id, ))
         except (Exception, Error) as e:
             print(f"Ошибка в ходе удаления пользователя: {e}")
+
+
+if __name__ == '__main__':
+    a = User(445743340, 'Izvekov_Alex', 445743340)
+    a.is_exist()
