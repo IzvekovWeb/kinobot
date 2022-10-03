@@ -55,33 +55,29 @@ def kino(message):
     user_name = message['from_user']['username']
     chat_id = message['chat']['id']
     bot.send_message(chat_id, "Кино", parse_mode='HTML')
+#     ----------------
+#     Тут будет обращение к API кинопоиска
+#     ----------------
 
 
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
-
+    command = None
     # Проверка на совпадение текста и команды
     for key, val in commands.items():
         if message.text in val:
             command = key
             break
-    func = f"{command}({message})"
-    eval(func)
-
-
-
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-    print(call)
-    print(call.message)
-    print(call.data)
-    if call.message:
-        if call.data == "test":
-            bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Пыщь")
+    try:
+        if command:
+            func = f"{command}({message})"
+            eval(func)
+    except Exception as e:
+        print(e)
 
 
 @bot.message_handler(commands=['info'])
-def start(message):
+def info(message):
     chat_id = message.chat.id
     msg = f"Доступные команды:\n ➡️ /kino - показать новые фильмы\n" \
                 f" ➡️ /add_to_favorite - добавить фильм в коллекцию\n" \
